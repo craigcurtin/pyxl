@@ -5,7 +5,7 @@ from openpyxl.styles import Font
 from openpyxl.chart import BarChart, Reference
 import string
 
-def automate_excel(file_name):
+def xl_auto(file_name):
     """The file name should have the following structure: sales_month.xlsx"""
     # read excel file
     excel_file = pd.read_excel(file_name)
@@ -53,4 +53,4 @@ def automate_excel(file_name):
     return
 
 if __name__ == '__main__':
-    automate_excel('sales_2021.xlsx')
+    xl_auto('sales_2021.xlsx')
