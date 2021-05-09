@@ -6,10 +6,10 @@ from openpyxl.chart import BarChart, Reference
 import string
 
 if __name__ == '__main__':
-    excel_file = pd.read_excel('Data/sales_supermarket.xlsx')
-    excel_file[['Gender', 'Product line', 'Total']]
+    xl_file = pd.read_excel('Data/sales_supermarket.xlsx')
+    xl_file[['Gender', 'Product line', 'Total']]
 
-    report_table = excel_file.pivot_table(index='Gender',
+    report_table = xl_file.pivot_table(index='Gender',
                                           columns='Product line',
                                           values='Total',
                                           aggfunc='sum').round(0)
