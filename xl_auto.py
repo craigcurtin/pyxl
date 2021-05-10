@@ -4,6 +4,9 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font
 from openpyxl.chart import BarChart, Reference
 import string
+from util_logger import setup_logger
+import logging
+import sys
 
 def xl_auto(file_name):
     """The file name should have the following structure: sales_month.xlsx"""
@@ -14,9 +17,9 @@ def xl_auto(file_name):
     # splitting the month and extension from the file name
     month_and_extension = file_name.split('_')[1]
     # send the report table to excel file
-    report_table.to_excel(f'Report/report_{month_and_extension}', sheet_name='Report', startrow=4)
+    report_table.to_excel(f'Reports/report_{month_and_extension}', sheet_name='Report', startrow=4)
     # loading workbook and selecting sheet
-    wb = load_workbook(f'Report/report_{month_and_extension}')
+    wb = load_workbook(f'Reports/report_{month_and_extension}')
     sheet = wb['Report']
     # cell references (original spreadsheet)
     min_column = wb.active.min_column
@@ -49,8 +52,15 @@ def xl_auto(file_name):
     sheet['A2'] = month_name.title()
     sheet['A1'].font = Font('Arial', bold=True, size=20)
     sheet['A2'].font = Font('Arial', bold=True, size=10)
-    wb.save(f'Report/report_{month_and_extension}')
+    wb.save(f'Reports/report_{month_and_extension}')
     return
 
 if __name__ == '__main__':
-    xl_auto('sales_2021.xlsx')
+    setup_logger('xl_auto', 'c:/Temp/', logging.DEBUG)
+    try:
+        xl_auto('Data/sales_2021.xlsx')
+    except Exception as ex:
+        logging.exception('Exception raised ..... uh, oh!')
+    else:
+        logging.info('normal termination')
+        sys.exit(0)
