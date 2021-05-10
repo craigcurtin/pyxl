@@ -8,15 +8,15 @@ import string
 def xl_auto(file_name):
     """The file name should have the following structure: sales_month.xlsx"""
     # read excel file
-    excel_file = pd.read_excel(file_name)
+    xl_file = pd.read_excel(file_name)
     # make pivot table
-    report_table = excel_file.pivot_table(index='Gender', columns='Product line', values='Total', aggfunc='sum').round(0)
+    report_table = xl_file.pivot_table(index='Gender', columns='Product line', values='Total', aggfunc='sum').round(0)
     # splitting the month and extension from the file name
     month_and_extension = file_name.split('_')[1]
     # send the report table to excel file
-    report_table.to_excel(f'report_{month_and_extension}', sheet_name='Report', startrow=4)
+    report_table.to_excel(f'Report/report_{month_and_extension}', sheet_name='Report', startrow=4)
     # loading workbook and selecting sheet
-    wb = load_workbook(f'report_{month_and_extension}')
+    wb = load_workbook(f'Report/report_{month_and_extension}')
     sheet = wb['Report']
     # cell references (original spreadsheet)
     min_column = wb.active.min_column
@@ -49,7 +49,7 @@ def xl_auto(file_name):
     sheet['A2'] = month_name.title()
     sheet['A1'].font = Font('Arial', bold=True, size=20)
     sheet['A2'].font = Font('Arial', bold=True, size=10)
-    wb.save(f'report_{month_and_extension}')
+    wb.save(f'Report/report_{month_and_extension}')
     return
 
 if __name__ == '__main__':

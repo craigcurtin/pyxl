@@ -18,7 +18,7 @@ if __name__ == '__main__':
                           sheet_name='Report',
                           startrow=4)
 
-    wb = load_workbook('report_2021.xlsx')
+    wb = load_workbook('Reports/report_2021.xlsx')
     sheet = wb['Report']
 
     # cell references (original spreadsheet)
