@@ -8,6 +8,7 @@ from util_logger import setup_logger
 import logging
 import sys
 
+
 def xl_auto(file_name):
     """The file name should have the following structure: sales_month.xlsx"""
     # read excel file
@@ -28,23 +29,26 @@ def xl_auto(file_name):
     max_row = wb.active.max_row
     # adding a chart
     barchart = BarChart()
-    data = Reference(sheet, min_col=min_column+1, max_col=max_column, min_row=min_row, max_row=max_row) #including headers
-    categories = Reference(sheet, min_col=min_column, max_col=min_column, min_row=min_row+1, max_row=max_row) #not including headers
+    data = Reference(sheet, min_col=min_column + 1, max_col=max_column, min_row=min_row,
+                     max_row=max_row)  # including headers
+    categories = Reference(sheet, min_col=min_column, max_col=min_column, min_row=min_row + 1,
+                           max_row=max_row)  # not including headers
     barchart.add_data(data, titles_from_data=True)
     barchart.set_categories(categories)
-    sheet.add_chart(barchart, "B12") #location chart
+    sheet.add_chart(barchart, "B12")  # location chart
     barchart.title = 'Sales by Product line'
-    barchart.style = 2 #choose the chart style
+    barchart.style = 2  # choose the chart style
     # applying formulas
     # first create alphabet list as references for cells
     alphabet = list(string.ascii_uppercase)
-    excel_alphabet = alphabet[0:max_column] #note: Python lists start on 0 -> A=0, B=1, C=2. #note2 the [a:b] takes b-a elements
+    excel_alphabet = alphabet[
+                     0:max_column]  # note: Python lists start on 0 -> A=0, B=1, C=2. #note2 the [a:b] takes b-a elements
     # sum in columns B-G
     for i in excel_alphabet:
-        if i!='A':
-            sheet[f'{i}{max_row+1}'] = f'=SUM({i}{min_row+1}:{i}{max_row})'
-            sheet[f'{i}{max_row+1}'].style = 'Currency'
-    sheet[f'{excel_alphabet[0]}{max_row+1}'] = 'Total'
+        if i != 'A':
+            sheet[f'{i}{max_row + 1}'] = f'=SUM({i}{min_row + 1}:{i}{max_row})'
+            sheet[f'{i}{max_row + 1}'].style = 'Currency'
+    sheet[f'{excel_alphabet[0]}{max_row + 1}'] = 'Total'
     # getting month name
     month_name = month_and_extension.split('.')[0]
     # formatting the report
@@ -54,6 +58,7 @@ def xl_auto(file_name):
     sheet['A2'].font = Font('Arial', bold=True, size=10)
     wb.save(f'Reports/report_{month_and_extension}')
     return
+
 
 if __name__ == '__main__':
     setup_logger('xl_auto', 'c:/Temp/', logging.DEBUG)

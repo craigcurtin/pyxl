@@ -1,8 +1,6 @@
-
 from xl_auto import xl_auto
 
 if __name__ == '__main__':
-
     xl_file_1 = pd.read_excel('Data/sales_01.xlsx')
     xl_file_2 = pd.read_excel('Data/sales_02.xlsx')
     xl_file_3 = pd.read_excel('Data/sales_03.xlsx')

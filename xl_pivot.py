@@ -10,9 +10,9 @@ if __name__ == '__main__':
     xl_file[['Gender', 'Product line', 'Total']]
 
     report_table = xl_file.pivot_table(index='Gender',
-                                          columns='Product line',
-                                          values='Total',
-                                          aggfunc='sum').round(0)
+                                       columns='Product line',
+                                       values='Total',
+                                       aggfunc='sum').round(0)
 
     report_table.to_excel('report_2021.xlsx',
                           sheet_name='Report',
